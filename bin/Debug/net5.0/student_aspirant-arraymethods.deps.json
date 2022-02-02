@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "student_aspirant-arraymethods/1.0.0": {
+        "runtime": {
+          "student_aspirant-arraymethods.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "student_aspirant-arraymethods/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
