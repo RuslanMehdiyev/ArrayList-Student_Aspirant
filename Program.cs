@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 namespace Student_Aspirant_ArrayMethods
 {
     class Program
@@ -49,6 +50,7 @@ namespace Student_Aspirant_ArrayMethods
         }
         static void Case1(Student student)
         {
+            Display("Methods of ArrayList were used in the Student class");
             bool end = true;
             do
             {
@@ -59,8 +61,9 @@ namespace Student_Aspirant_ArrayMethods
                     Display("2) Display the number of student(s).");
                     Display("3) Delete student.");
                     Display("4) Show all students.");
-                    Display("5) Display student by ordinal index.");
-                    Display("6) Back to menu.");
+                    Display("5) Show after sorting.");
+                    Display("6) Display student by ordinal index.");
+                    Display("7) Back to menu.");
                     Display("0) Exit.");
                     int choise = Convert.ToInt32(Console.ReadLine());
                     switch (choise)
@@ -77,11 +80,14 @@ namespace Student_Aspirant_ArrayMethods
                         case 4:
                             student.Print();
                             break;
-                        case 5:
+                        case 6:
                             student.PrintbyIndex();
                             break;
-                        case 6:
+                        case 7:
                             end = false;
+                            break;
+                        case 5:
+                            student.SortStudent();
                             break;
                         case 0:
                             Display("\nThank you. Bye)");
@@ -101,6 +107,7 @@ namespace Student_Aspirant_ArrayMethods
         }
         static void Case2(Aspirant aspirant)
         {
+            Display("Methods of LinkedList were used in the Aspirant class");
             bool end = true;
             do
             {
@@ -109,7 +116,7 @@ namespace Student_Aspirant_ArrayMethods
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Display("1) Add aspirant(s).");
                     Display("2) Display the number of aspirant(s).");
-                    Display("3) Delete aspirant.");
+                    Display("3) Delete last added aspirant.");
                     Display("4) Show all aspirants.");
                     Display("5) Display aspirant by ordinal index.");
                     Display("6) Back to menu.");
@@ -181,7 +188,20 @@ namespace Student_Aspirant_ArrayMethods
                 arrayList.Add($"Surname : {Surname}\nYear of study: {YearOfStudy}\nID: {ID}");
                 Console.WriteLine("\nStudent Aded.\n");
             }
+        }
+        public void SortStudent()
+        {
             arrayList.Sort();
+            foreach (var i in arrayList)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"\n{i}\n");
+            }
+            if (arrayList.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\nEmpty list.\n");
+            }
         }
         public override void DeletePerson()
         {
@@ -221,7 +241,7 @@ namespace Student_Aspirant_ArrayMethods
     }
     class Aspirant : Person
     {
-        ArrayList arrayList = new ArrayList();
+        LinkedList<string> aspirant = new LinkedList<string>();
         public string Dissertation { get; set; }
         public override void AddPerson()
         {
@@ -237,16 +257,13 @@ namespace Student_Aspirant_ArrayMethods
                 ID = ValidationClass.ValidationID();
                 Console.Write($"Enter the {Surname}'s Dissertation topic:");
                 Dissertation = ValidationClass.ValidationString();
-                arrayList.Add($"Surname : {Surname}\nYear of study: {YearOfStudy}\nID: {ID}\nDissertation topic: {Dissertation}");
+                aspirant.AddLast($"Surname : {Surname}\nYear of study: {YearOfStudy}\nID: {ID}\nDissertation topic: {Dissertation}");
                 Console.WriteLine("\nAspirant Aded.\n");
             }
-            arrayList.Sort();
         }
         public override void DeletePerson()
         {
-            Console.WriteLine("Type the number of aspirant you want to delete:");
-            int index = ValidationClass.ValidationForWrongInput();
-            arrayList.RemoveAt(index - 1);
+            aspirant.RemoveLast();
             Console.WriteLine("\nDeleted successfully\n");
         }
         public override void PrintbyIndex()
@@ -254,24 +271,39 @@ namespace Student_Aspirant_ArrayMethods
             Console.WriteLine("\nAspirant under which number do you want to display?");
             int index = ValidationClass.ValidationForWrongInput();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\n{arrayList[index - 1]}\n");
+            foreach (string item in aspirant)
+            {
+                index--;
+                if (index == 0)
+                {
+                    Console.WriteLine($"\n{item}\n");
+                }
+                else
+                {
+                    Console.WriteLine("\nPlease make sure you have entered the correct index number of aspirant.\n");
+                }
+            }
+            if (aspirant.Count == 0)
+            {
+                Console.WriteLine("\nEmpty list\n");
+            }
         }
         public override void NumOfPerson()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\nThe number of created aspirant's list is:{arrayList.Count}\n");
+            Console.WriteLine($"\nThe number of created aspirant's list is:{aspirant.Count}\n");
         }
         public override void Print()
         {
-            int k = 0;
-            foreach (var i in arrayList)
+            int number = 0;
+            foreach (var i in aspirant)
             {
-                k++;
+                number++;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"Aspirant({k})");
+                Console.WriteLine($"Aspirant({number})");
                 Console.WriteLine($"\n{i}\n");
             }
-            if (arrayList.Count == 0)
+            if (aspirant.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nEmpty list.\n");
